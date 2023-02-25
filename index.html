@@ -1,18 +1,48 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
   <head>
-    <meta charset="UTF-8">
-    <title>Farma Academy - ABNT Formater</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farma Academy - ABNT Formatter</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <h1>Farma Academy - ABNT Formater</h1>
-    <img class="logo" src="imagem.png">
-    <form>
-      <label for="references">Insira as referências abaixo:</label><br>
-      <textarea id="references" name="references" rows="10" cols="50"></textarea><br>
-      <input type="button" value="Formatar" onclick="formatReferences()">
-    </form>
-    <h2>Referências formatadas:</h2>
-    <textarea id="formatted" name="formatted" rows="10" cols="50" readonly></textarea>
+    <header>
+      <h1>Farma Academy - ABNT Formater</h1>
+      <br />
+      <div class="imagem">
+        <img src="imagem.png" />
+      </div>
+      <br />
+      <button id="theme-btn" onclick="toggleTheme()">Trocar Tema</button>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h2>Insira o Texto</h2>
+            <textarea id="input-text" rows="10"></textarea>
+            <label for="input-link">Link:</label>
+            <input
+              type="text"
+              id="input-link"
+              placeholder="Insira o link do artigo"
+            />
+            <button id="search-btn" onclick="searchReferences()">
+              Buscar Referências
+            </button>
+          </div>
+          <div class="col">
+            <h2>Referências Formatadas</h2>
+            <textarea id="output-text" rows="10"></textarea>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="text/javascript" src="trocaTema.js"></script>
+    <script type="text/javascript" src="referenciadorABNT.js"></script>
   </body>
 </html>

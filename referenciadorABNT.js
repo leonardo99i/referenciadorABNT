@@ -1,26 +1,52 @@
-function formatReferences() {
-    // Pega o texto colado na caixa de texto
-    const text = document.getElementById("references").value.trim();
+function searchReferences() {
+    const inputText = document.getElementById("input-text").value.trim();
+    const inputLink = document.getElementById("input-link").value.trim();
   
-    // Separa as linhas do texto em uma lista
-    const lines = text.split("\n");
-  
-    // Cria uma lista vazia para armazenar as referências formatadas
-    const formatted = [];
-  
-    // Cria uma expressão regular para identificar o título da referência
-    const titleRegex = /(?<=^|\n)(.+)(?=\n|$)/g;
-  
-    // Formata cada linha como uma referência e adiciona na lista de referências formatadas
-    for (let i = 0; i < lines.length; i++) {
-      const title = lines[i].match(titleRegex);
-      if (title) {
-        const formattedRef = "[" + (i + 1) + "] " + title[0];
-        formatted.push(formattedRef);
-      }
+    if (!inputText || !inputLink) {
+      alert("Por favor, insira o texto e o link.");
+      return;
     }
   
-    // Junta as referências formatadas em um único texto e adiciona na caixa de texto de referências formatadas
-    document.getElementById("formatted").value = formatted.join("\n\n");
+    const outputText = formatReferences(inputText, inputLink);
+    document.getElementById("output-text").value = outputText;
+  }
+  
+  function formatReferences(text, link) {
+    const authors = getAuthors(text);
+    const year = getYear();
+    const title = getTitle(text);
+    const siteName = getSiteName(link);
+    const retrievedFrom = getRetrievedFrom(link);
+  
+    let outputText = `${authors.toUpperCase()}. ${year}. ${title}. ${siteName}. ${retrievedFrom}`;
+  
+    return outputText;
+  }
+  
+  function getAuthors(text) {
+    const regex = /(([A-Z]{1}[a-z]+([ |-][A-Z]{1}[a-z]+)*){1,3})/g;
+    const matches = text.match(regex);
+    const formattedAuthors = matches.map((match) => match.trim()).join(', ');
+    return formattedAuthors;
+  }
+  
+  function getYear() {
+    const date = new Date();
+    return date.getFullYear();
+  }
+  
+  function getTitle(text) {
+    const match = text.match(/<title>(.+?)<\/title>/i);
+    return match ? match[1].trim() : "";
+  }
+  
+  function getSiteName(link) {
+    const regex = /([a-z]+\.[a-z]+)/i;
+    const match = link.match(regex);
+    return match ? match[1] : "";
+  }
+  
+  function getRetrievedFrom(link) {
+    return `Disponível em: <${link}>.`;
   }
   

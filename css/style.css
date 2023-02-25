@@ -1,41 +1,119 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    font-family: Arial, sans-serif;
-  }
-  
-  h1 {
-    color: #0072c6;
-  }
-  
-  form {
-    margin-bottom: 10px;
-  }
-  
-  label {
+    font-family: sans-serif;
+    background-color: #f2f2f2;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2.5rem;
     font-weight: bold;
-  }
-  
-  textarea {
-    font-size: 14px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    resize: vertical;
-  }
-  
-  input[type="button"] {
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: #0072c6;
-    color: #fff;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.col {
+    width: calc(50% - 10px);
+    margin: 10px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #333;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #333;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #333;
+    color: white;
     border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
     cursor: pointer;
-  }
-  
-  input[type="button"]:hover {
-    background-color: #005ea2;
-  }
-  
-  h2 {
+}
+
+button:hover {
+    background-color: #666;
+}
+
+#theme-btn {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
     margin-top: 20px;
-  }
-  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#theme-btn:hover {
+    background-color: #666;
+}
+
+.dark-theme {
+    background-color: #333;
+    color: white;
+}
+
+.dark-theme textarea {
+    background-color: #1a1a1a;
+    color: white;
+    border: 2px solid #999;
+}
+
+.dark-theme label {
+    color: white;
+}
+
+.imagem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
