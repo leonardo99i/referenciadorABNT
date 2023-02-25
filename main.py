@@ -1,7 +1,7 @@
 from logging import root
 import tkinter as tk
 from tkinter import ttk
-#from normas_abnt import NormasABNT # importa a biblioteca NormasABNT para formatar as referências
+from normas_abnt import NormasABNT # importa a biblioteca NormasABNT para formatar as referências
 
 class InterfaceGrafica:
     def __init__(self):
@@ -68,7 +68,7 @@ class InterfaceGrafica:
         # Inicia a janela
         self.janela.mainloop()
 
-"""     def pegar_referencias(self):
+    def pegar_referencias(self):
         # Pega o texto e o link da caixa de texto e entrada, respectivamente
         texto = self.caixa_texto.get("1.0", "end")
         link = self.caixa_link.get()
@@ -79,7 +79,7 @@ class InterfaceGrafica:
         
         # Mostra as referências na caixa de texto de referências
         self.caixa_referencias.delete("1.0", "end")
-        self.caixa_referencias.insert("end", referencias) """
+        self.caixa_referencias.insert("end", referencias)
 
 if __name__ == "__main__":
     InterfaceGrafica()
