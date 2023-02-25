@@ -1,4 +1,6 @@
+from logging import root
 import tkinter as tk
+from tkinter import ttk
 #from normas_abnt import NormasABNT # importa a biblioteca NormasABNT para formatar as referências
 
 class InterfaceGrafica:
@@ -8,12 +10,38 @@ class InterfaceGrafica:
         self.janela.title("Referências ABNT")
         
         # Cria um label com o título e um logo
-        logo = tk.PhotoImage(file="logo.png")
+        logo = tk.PhotoImage(file="imagem.png")
         label_logo = tk.Label(self.janela, image=logo)
         label_logo.image = logo
         label_logo.pack(pady=10)
         label_titulo = tk.Label(self.janela, text="Referências ABNT", font=("Arial", 20))
         label_titulo.pack(pady=10)
+
+        #Cria o label que troca a cor do fundo
+        trocar_tema = tk.Button(root, text="Trocar Tema", command=muda_tema)
+        trocar_tema.pack()
+
+        #Função que troca a cor do fundo
+        dark_theme = False
+
+        def trocar_tema():
+            global dark_theme
+            if dark_theme:
+                root.config(bg="white")
+                trocar_tema.config(text="Mudar para tema Escuro")
+                dark_theme = False
+            else:
+                root.config("black")
+                trocar_tema.config(text="Trocar tema para Branco")
+                dark_theme = True
+        
+        #Estilização do Botão
+        troca_tema_style = ttk.Style()
+        troca_tema_style.configure("Toggle.TButton", foreground=[("active", "white"), ("!disabled", "black")], background=[("active", "black"), ("!disabled", "white")])
+        troca_tema_style.config(style="Toggle.TButton")
+        
+                
+
         
         # Cria a caixa de texto para o usuário colar o texto
         label_texto = tk.Label(self.janela, text="Cole aqui o texto que você quer referenciar:")
@@ -28,8 +56,8 @@ class InterfaceGrafica:
         self.caixa_link.pack(padx=10, pady=5)
         
         # Cria o botão para pesquisar as referências
-        botao_referencias = tk.Button(self.janela, text="Pegar Referências", command=self.pegar_referencias)
-        botao_referencias.pack(pady=10)
+        #botao_referencias = tk.Button(self.janela, text="Pegar Referências", command=self.pegar_referencias)
+        #botao_referencias.pack(pady=10)
         
         # Cria a caixa de texto para mostrar as referências
         label_referencias = tk.Label(self.janela, text="Referências:")
