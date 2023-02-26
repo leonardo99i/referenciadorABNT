@@ -1,48 +1,15 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Farma Academy - ABNT Formatter</title>
-    <link rel="stylesheet" href="css/reset.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <title>Buscador de Referências ABNT</title>
   </head>
   <body>
-    <header>
-      <h1>Farma Academy - ABNT Formater</h1>
-      <br />
-      <div class="imagem">
-        <img src="imagem.png" />
-      </div>
-      <br />
-      <button id="theme-btn" onclick="toggleTheme()">Trocar Tema</button>
-    </header>
-
-    <main>
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <h2>Insira o Texto</h2>
-            <textarea id="input-text" rows="10"></textarea>
-            <label for="input-link">Link:</label>
-            <input
-              type="text"
-              id="input-link"
-              placeholder="Insira o link do artigo"
-            />
-            <button id="search-btn" onclick="searchReferences()">
-              Buscar Referências
-            </button>
-          </div>
-          <div class="col">
-            <h2>Referências Formatadas</h2>
-            <textarea id="output-text" rows="10"></textarea>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <script type="text/javascript" src="trocaTema.js"></script>
-    <script type="text/javascript" src="referenciadorABNT.js"></script>
+    <h1>Buscador de Referências ABNT</h1>
+    <input type="text" id="urlInput" placeholder="Insira a URL aqui" />
+    <button id="searchButton">Buscar Referência</button>
+    <div id="referenceOutput"></div>
+    <script src="referenciadorABNT.js"></script>
   </body>
 </html>

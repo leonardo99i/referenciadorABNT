@@ -1,52 +1,42 @@
-function searchReferences() {
-    const inputText = document.getElementById("input-text").value.trim();
-    const inputLink = document.getElementById("input-link").value.trim();
-  
-    if (!inputText || !inputLink) {
-      alert("Por favor, insira o texto e o link.");
-      return;
-    }
-  
-    const outputText = formatReferences(inputText, inputLink);
-    document.getElementById("output-text").value = outputText;
+const apiKey = "1c258907-5fb1-422c-95cf-47fe606354a1";
+
+async function getReference(url) {
+  const apiUrl = `https://opengraph.io/api/1.1/site/${encodeURIComponent(
+    url
+  )}?app_id=${apiKey}`;
+  const response = await fetch(apiUrl);
+  const data = await response.json();
+
+  if (data.error) {
+    return data.error;
   }
-  
-  function formatReferences(text, link) {
-    const authors = getAuthors(text);
-    const year = getYear();
-    const title = getTitle(text);
-    const siteName = getSiteName(link);
-    const retrievedFrom = getRetrievedFrom(link);
-  
-    let outputText = `${authors.toUpperCase()}. ${year}. ${title}. ${siteName}. ${retrievedFrom}`;
-  
-    return outputText;
+
+  const title = data.hybridGraph.title || "";
+  const author = data.hybridGraph.author || "";
+  const publication = data.hybridGraph.site_name || "";
+  const date = new Date(data.hybridGraph.published_time).toLocaleDateString() || "";
+  const link = url;
+
+  const citation = `${author}, ${title}, ${date}, Disponível em: <${link}>.`;
+
+  return citation;
+}
+
+document.getElementById("searchButton").addEventListener("click", async () => {
+  const urlInput = document.getElementById("urlInput");
+  const url = urlInput.value.trim();
+
+  if (url === "") {
+    return;
   }
-  
-  function getAuthors(text) {
-    const regex = /(([A-Z]{1}[a-z]+([ |-][A-Z]{1}[a-z]+)*){1,3})/g;
-    const matches = text.match(regex);
-    const formattedAuthors = matches.map((match) => match.trim()).join(', ');
-    return formattedAuthors;
+
+  const referenceOutput = document.getElementById("referenceOutput");
+  referenceOutput.innerText = "Buscando referência...";
+
+  try {
+    const citation = await getReference(url);
+    referenceOutput.innerText = citation;
+  } catch (error) {
+    referenceOutput.innerText = `Erro ao buscar referência: ${error.message}`;
   }
-  
-  function getYear() {
-    const date = new Date();
-    return date.getFullYear();
-  }
-  
-  function getTitle(text) {
-    const match = text.match(/<title>(.+?)<\/title>/i);
-    return match ? match[1].trim() : "";
-  }
-  
-  function getSiteName(link) {
-    const regex = /([a-z]+\.[a-z]+)/i;
-    const match = link.match(regex);
-    return match ? match[1] : "";
-  }
-  
-  function getRetrievedFrom(link) {
-    return `Disponível em: <${link}>.`;
-  }
-  
+});
