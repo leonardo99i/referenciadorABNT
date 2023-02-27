@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Referenciador ABNT</title>
+    <style>
+      input[type="text"] {
+        padding: 8px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        box-shadow: 0 0 10px #ccc;
+        margin-bottom: 16px;
+        width: 80%;
+      }
+
+      button[type="submit"] {
+        padding: 8px 16px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: none;
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+      }
+
+      .reference {
+        padding: 8px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        margin-bottom: 16px;
+        width: 80%;
+      }
+
+      .reference p {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Referenciador ABNT</h1>
+    <p>Insira o link do artigo abaixo:</p>
+    <form>
+      <input
+        type="text"
+        id="url"
+        placeholder="https://www.exemplo.com/artigo"
+      />
+      <button type="submit" onclick="getReference()">Gerar Referência</button>
+    </form>
+    <div id="reference-container"></div>
+
+    <script>
+      function getReference() {
+        const url = document.getElementById("url").value;
+        fetch(url)
+          .then((response) => response.text())
+          .then((data) => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(data, "text/html");
+            const articleHeader = htmlDoc.querySelector(".page-header h1");
+            const articleTitle = articleHeader.textContent.trim();
+            const articleAuthors = Array.from(
+              htmlDoc.querySelectorAll("meta[name='citation_author']")
+            ).map((meta) => meta.getAttribute("content"));
+            const articleDate = htmlDoc
+              .querySelector("meta[name='citation_date']")
+              .getAttribute("content");
+            const articleUrl = url;
+            const reference = `${articleAuthors.join(
+              ". "
+            )} "${articleTitle}". ${articleDate}. Disponível em: <${articleUrl}>.`;
+            document.getElementById("reference-container").innerHTML = `
+                <div class="reference">
+                    <p>${reference}</p>
+                </div>
+            `;
+          })
+          .catch((error) => console.error(error));
+      }
+    </script>
+  </body>
+</html>

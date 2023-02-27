@@ -12,12 +12,22 @@ async function getReference(url) {
   }
 
   const title = data.hybridGraph.title || "";
-  const author = data.hybridGraph.author || "";
+  const author = data.hybridGraph.article && data.hybridGraph.article.author
+    ? data.hybridGraph.article.author
+    : (data.hybridGraph.author || "");
   const publication = data.hybridGraph.site_name || "";
-  const date = new Date(data.hybridGraph.published_time).toLocaleDateString() || "";
   const link = url;
+  let date = "";
 
-  const citation = `${author}, ${title}, ${date}, Disponível em: <${link}>.`;
+  const dateMatches = url.match(/\/(\d{4})\./);
+  if (dateMatches) {
+    date = dateMatches[1];
+  } else if (data.hybridGraph.date) {
+    const publishedTime = data.hybridGraph.date.published_time || "";
+    date = new Date(publishedTime).toLocaleDateString();
+  }
+
+  const citation = `${author}. ${title}. ${publication}, ${date}. Disponível em: <${link}>.`;
 
   return citation;
 }
